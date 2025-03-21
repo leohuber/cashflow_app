@@ -1,8 +1,20 @@
 {
     "ruff.configurationPreference": "filesystemFirst",
-    "mypy-type-checker.preferDaemon": true,
-    "mypy-type-checker.importStrategy": "fromEnvironment",
-    "mypy-type-checker.reportingScope": "workspace",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "python.analysis.aiCodeActions": {
+        "generateDocstring": true,
+        "removeUnusedArguments": true,
+        "removeUnusedVariables": true,
+        "removeUnusedImports": true,
+        "sortImports": true,
+        "sortImportsOnSave": true
+    },
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.inlayHints.functionReturnTypes": false,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.typeCheckingMode": "strict"
 }

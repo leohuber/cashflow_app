@@ -4,7 +4,7 @@ from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
 
-class CashFlowApp(App):
+class CashFlowApp(App[None]):
     """A console app to manage bank transactions and track expenses and income."""
 
     BINDINGS: ClassVar = [("d", "toggle_dark", "Toggle dark mode")]
