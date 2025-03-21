@@ -1,0 +1,69 @@
+[project]
+name = "cashflow"
+version = "0.1.0"
+description = "A tool to analyse bank transactions and track your expenses and income."
+authors = [
+    { name = "Leo Huber", email = "leo_huber@icloud.com" }
+]
+dependencies = [
+    "textual==2.1.2"
+]
+readme = "README.md"
+requires-python = ">= 3.13"
+
+[project.scripts]
+cashflow = "cashflow.__main__:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 150
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = [
+    # at least this three should be fine in tests:
+    "S101", # asserts allowed in tests...
+    "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+    "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    # The below are debateable
+    "PLR2004", # Magic value used in comparison, ...
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "INP001"
+]
+
+[tool.uv]
+managed = true
+dev-dependencies = [
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "textual-dev>=1.7.0",
+    "ruff>=0.11.1",
+    "pytest>=8.3.5"
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["cashflow"]
+exclude = [
+  "/.github",
+  "/test",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+#norecursedirs = "tests/test_utils"
+testpaths = [
+    "tests"
+]
