@@ -6,3 +6,6 @@ __pycache__/
 
 # Ruff stuff:
 .ruff_cache/
+
+# MyPy stuff:
+.mypy_cache/

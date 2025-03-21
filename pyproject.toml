@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">= 3.13"
 
 [project.scripts]
-cashflow = "cashflow.__main__:cli"
+cashflow = "cashflow:__main__.main"
 
 [build-system]
 requires = ["hatchling"]
@@ -57,7 +57,7 @@ allow-direct-references = true
 packages = ["cashflow"]
 exclude = [
   "/.github",
-  "/test",
+  "/tests",
 ]
 
 [tool.pytest.ini_options]
