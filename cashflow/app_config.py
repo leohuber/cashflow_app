@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 DEFAULT_CONFIG = """
-[transactions]
+[paths]
 bankcsvpath= "path_to_csv_directory"
 """
 
