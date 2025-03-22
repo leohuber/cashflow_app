@@ -2,10 +2,17 @@ import tomllib as toml
 from pathlib import Path
 from typing import Any
 
-DEFAULT_CONFIG = """
+__default_config = """
 [paths]
 bankcsvpath= "path_to_csv_directory"
 """
+
+
+def create_default_config(config_file: Path) -> None:
+    if config_file.exists():
+        return
+    with config_file.open("w") as file:
+        file.write(__default_config)
 
 
 class AppConfig:

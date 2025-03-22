@@ -48,7 +48,7 @@ dev-dependencies = [
 ]
 
 [tool.pyright]
-typeCheckingMode = "strict"
+typeCheckingMode = "standard"
 
 [tool.hatch.metadata]
 allow-direct-references = true

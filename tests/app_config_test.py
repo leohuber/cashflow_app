@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from cashflow.app_config import DEFAULT_CONFIG, AppConfig
+from cashflow.app_config import AppConfig, create_default_config
 
 
 def test_app_config_with_existing_file(tmp_path: Path) -> None:
     # Create a temporary config file with sample content
 
     config_file: Path = tmp_path / "config.toml"
-    config_file.write_text(DEFAULT_CONFIG)
+    create_default_config(config_file)
 
     # Initialize AppConfig with the temporary file
     config = AppConfig(config_file)
