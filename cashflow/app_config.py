@@ -4,13 +4,13 @@ from typing import Any
 
 from pydantic import BaseModel, DirectoryPath
 
-__default_config = f"""# Path to the CSV file containing account transactions
-account_tx_csv_path = "{Path.home()}"
+__default_config = f"""# Data path to the cashflow data directory contianing the CSV files and other data
+data_path = "{Path.home()}"
 """
 
 
 class AppConfig(BaseModel):
-    account_tx_csv_path: DirectoryPath
+    data_path: DirectoryPath
 
 
 def load_config(config_file: Path) -> AppConfig:

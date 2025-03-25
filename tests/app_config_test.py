@@ -12,7 +12,7 @@ def test_app_config(tmp_path: Path) -> None:
 
     config_file: Path = tmp_path / "config.toml"
     config: AppConfig = load_config(config_file)
-    assert config.account_tx_csv_path == Path.home()
+    assert config.data_path == Path.home()
 
 
 def test_app_config_path_not_existent(tmp_path: Path) -> None:

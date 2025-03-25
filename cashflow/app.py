@@ -10,7 +10,11 @@ from cashflow.screens.modalscreen import ModalScreen
 class CashFlowApp(App):
     """A console app to manage bank transactions and track expenses and income."""
 
-    BINDINGS: ClassVar = [("d", "toggle_dark", "Toggle dark mode"), ("b", "push_screen('no_csv_data_error')", "BSOD")]
+    BINDINGS: ClassVar = [
+        ("d", "toggle_dark", "Toggle dark mode"),
+        ("b", "push_screen('no_csv_data_error')", "BSOD"),
+        ("q", "app.quit", "Quit the app"),
+    ]
 
     def __init__(self, config: AppConfig | None) -> None:
         super().__init__()
