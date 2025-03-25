@@ -1,25 +1,27 @@
 from pathlib import Path
 
-from cashflow.app_config import AppConfig, create_default_config
+import pytest
+from pydantic import ValidationError
+
+from cashflow import app_config
+from cashflow.app_config import AppConfig, load_config
 
 
-def test_app_config_with_existing_file(tmp_path: Path) -> None:
+def test_app_config(tmp_path: Path) -> None:
     # Create a temporary config file with sample content
 
     config_file: Path = tmp_path / "config.toml"
-    create_default_config(config_file)
-
-    # Initialize AppConfig with the temporary file
-    config = AppConfig(config_file)
-    # Verify that the 'paths' key was read correctly
-    paths = config.get("paths")
-    assert paths is not None
-    assert paths.get("bankcsvpath") == "path_to_csv_directory"
+    config: AppConfig = load_config(config_file)
+    assert config.account_tx_csv_path == Path.home()
 
 
-def test_app_config_file_not_found(tmp_path: Path) -> None:
-    # Use a path that does not exist
-    config_file = tmp_path / "non_existent_config.toml"
-    config = AppConfig(config_file)
-    # AppConfig should have an empty config as file is missing
-    assert config.config_data == {}
+def test_app_config_path_not_existent(tmp_path: Path) -> None:
+    # Create a temporary config file with sample content
+
+    app_config.__default_config = """
+account_tx_csv_path = "some_path_that_does_not_exist"
+"""  # noqa: SLF001
+
+    config_file: Path = tmp_path / "config.toml"
+    with pytest.raises(ValidationError):
+        load_config(config_file)

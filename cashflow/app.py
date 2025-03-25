@@ -3,6 +3,7 @@ from typing import ClassVar
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
+from cashflow.app_config import AppConfig
 from cashflow.screens.modalscreen import ModalScreen
 
 
@@ -10,6 +11,10 @@ class CashFlowApp(App):
     """A console app to manage bank transactions and track expenses and income."""
 
     BINDINGS: ClassVar = [("d", "toggle_dark", "Toggle dark mode"), ("b", "push_screen('no_csv_data_error')", "BSOD")]
+
+    def __init__(self, config: AppConfig | None) -> None:
+        super().__init__()
+        self.config: AppConfig | None = config
 
     def compose(self) -> ComposeResult:
         """Create child widgets for the app."""

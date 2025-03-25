@@ -6,7 +6,8 @@ authors = [
     { name = "Leo Huber", email = "leo_huber@icloud.com" }
 ]
 dependencies = [
-    "textual==2.1.2"
+    "textual==2.1.2",
+    "pydantic>=2.10.6",
 ]
 readme = "README.md"
 requires-python = ">= 3.13"
