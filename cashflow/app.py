@@ -1,18 +1,17 @@
-from typing import Any, ClassVar
+from typing import TYPE_CHECKING, ClassVar
 
-import pandas as pd
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
 from cashflow.app_config import AppConfig
+from cashflow.data.csvhandler import list_csv_files, load_dataframe
 from cashflow.screens.modalscreen import ModalScreen
 from cashflow.widgets.dataframetable import DataFrameTable
 
-# Pandas DataFrame
-dataframe: Any = pd.DataFrame()
-dataframe["Name"] = ["Dan", "Ben", "Don", "John", "Jim", "Harry"]
-dataframe["Score"] = [77, 56, 90, 99, 83, 69]
-dataframe["Grade"] = ["C", "F", "A", "A", "B", "D"]
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from pandas import DataFrame
 
 
 class CashFlowApp(App):
@@ -20,13 +19,13 @@ class CashFlowApp(App):
 
     BINDINGS: ClassVar = [
         ("d", "toggle_dark", "Toggle dark mode"),
-        ("b", "push_screen('no_csv_data_error')", "BSOD"),
+        ("b", "push_screen('no_csv_data_error')", "No CSV Data Error"),
         ("q", "app.quit", "Quit the app"),
     ]
 
-    def __init__(self, config: AppConfig | None) -> None:
+    def __init__(self, config: AppConfig) -> None:
         super().__init__()
-        self.config: AppConfig | None = config
+        self.config: AppConfig = config
         self.title = "CashFlow"
         self.sub_title = "Manage and analyze expenses and income"
 
@@ -38,8 +37,10 @@ class CashFlowApp(App):
 
     def on_mount(self) -> None:
         self.install_screen(ModalScreen("No CSV Data Available"), name="no_csv_data_error")
-        table = self.query_one(DataFrameTable)
-        table.add_df(dataframe)
+        csv_files: list[Path] = list_csv_files(self.config.data_path)
+        transactions: DataFrame = load_dataframe(csv_files[0])
+        table: DataFrameTable = self.query_one(DataFrameTable)
+        table.add_df(transactions)
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
