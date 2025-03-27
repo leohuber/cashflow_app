@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, ClassVar
 
 from textual.app import App, ComposeResult
+from textual.binding import BindingType
 from textual.widgets import Footer, Header
 
 from cashflow.app_config import AppConfig
@@ -17,7 +18,7 @@ if TYPE_CHECKING:
 class CashFlowApp(App):
     """A console app to manage and analyze expenses and income."""
 
-    BINDINGS: ClassVar = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         ("d", "toggle_dark", "Toggle dark mode"),
         ("b", "push_screen('no_csv_data_error')", "No CSV Data Error"),
         ("q", "app.quit", "Quit the app"),
