@@ -9,3 +9,6 @@ __pycache__/
 
 # MyPy stuff:
 .mypy_cache/
+
+# Pytest stuff:
+.pytest_cache/
