@@ -46,7 +46,8 @@ dev-dependencies = [
     "pre-commit>=4.2.0",
     "textual-dev>=1.7.0",
     "ruff>=0.11.1",
-    "pytest>=8.3.5"
+    "pytest>=8.3.5",
+    "pip-licenses>=5.0.0",
 ]
 
 [tool.pyright]
@@ -68,4 +69,12 @@ addopts = "-ra -q"
 #norecursedirs = "tests/test_utils"
 testpaths = [
     "tests"
+]
+
+[tool.pip-licences]
+from = "mixed"
+format = "markdown"
+output-file = "THIRD_PARTY_LICENSES.md"
+ignore-packages = [
+  "scipy"
 ]
