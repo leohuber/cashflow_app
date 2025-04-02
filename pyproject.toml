@@ -1,16 +1,17 @@
 [project]
 name = "cashflow"
 version = "0.1.0"
+readme = "README.md"
 description = "A tool to analyse bank transactions and track your expenses and income."
 authors = [
     { name = "Leo Huber", email = "leo_huber@icloud.com" }
 ]
+license = "GPL-3.0-only"
 dependencies = [
     "textual==2.1.2",
     "pydantic>=2.10.6",
     "pandas>=2.2.3",
 ]
-readme = "README.md"
 requires-python = ">= 3.13"
 
 [project.scripts]
