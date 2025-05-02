@@ -15,6 +15,7 @@ class AppConfig(BaseModel):
 
 def load_config(config_file: Path) -> AppConfig:
     if not config_file.exists():
+        config_file.parent.mkdir(parents=True, exist_ok=True)
         with config_file.open("w") as file:
             file.write(__default_config)
     with config_file.open() as file:
