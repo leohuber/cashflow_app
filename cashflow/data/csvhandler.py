@@ -5,7 +5,7 @@ from pandas import DataFrame
 
 
 def list_csv_files(data_path: Path) -> list[Path]:
-    if not data_path.is_dir():
+    if data_path is None or not data_path.is_dir():
         return []
     csv_dir = data_path / "csv_import"
     csv_dir.mkdir(parents=True, exist_ok=True)

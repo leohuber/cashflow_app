@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+# TODO: Use uv in the shebang line and convert to python (https://docs.astral.sh/uv/guides/scripts/#using-a-shebang-to-create-an-executable-file)
+
 if [[ ! -f "pyproject.toml" ]]; then
     echo "pyproject.toml not found. Exiting..."
     exit 1

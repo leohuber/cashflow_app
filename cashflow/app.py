@@ -39,6 +39,9 @@ class CashFlowApp(App):
     def on_mount(self) -> None:
         self.install_screen(ModalScreen("No CSV Data Available"), name="no_csv_data_error")
         csv_files: list[Path] = list_csv_files(self.config.data_path)
+        if not csv_files:
+            self.push_screen("no_csv_data_error")
+            return
         transactions: DataFrame = load_dataframe(csv_files[0])
         table: DataFrameTable = self.query_one(DataFrameTable)
         table.add_df(transactions)
