@@ -45,6 +45,7 @@ class CashFlowApp(App):
         transactions: DataFrame = load_dataframe(csv_files[0])
         table: DataFrameTable = self.query_one(DataFrameTable)
         table.add_df(transactions)
+        table.filter_column()
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""

@@ -23,3 +23,8 @@ class DataFrameTable(DataTable):
         """Update DataFrameTable with a new DataFrame."""
         self.clear(columns=True)
         self.add_df(df)
+
+    def filter_column(self) -> None:
+        """Filter DataFrameTable by a column value."""
+        # Remove the column "Währung"
+        self.update_df(self.df[["Buchungsdatum", "Belastung", "Gutschrift", "Beschreibung1", "Beschreibung2", "Beschreibung3"]])
