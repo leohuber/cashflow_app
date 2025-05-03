@@ -5,7 +5,7 @@ from textual.binding import BindingType
 from textual.widgets import Footer, Header
 
 from cashflow.app_config import AppConfig
-from cashflow.data.csvhandler import list_csv_files, load_dataframe
+from cashflow.data.csv.csvhandler import list_csv_files, load_dataframe
 from cashflow.screens.modalscreen import ModalScreen
 from cashflow.widgets.dataframetable import DataFrameTable
 
