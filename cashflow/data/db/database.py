@@ -26,8 +26,6 @@ class Category(Base):
 
 
 class Transaction(Base):
-    """Model representing a financial transaction."""
-
     __tablename__ = "transactions"
 
     id = Column(Integer, primary_key=True)
@@ -44,20 +42,10 @@ class Transaction(Base):
 
 
 class DatabaseManager:
-    """Manager for database operations."""
-
-    def __init__(self, db_path: str | None = None) -> None:
-        """Initialize database connection.
-
-        Args:
-            db_path: Path to the SQLite database file. If None, uses default location.
-        """
+    def __init__(self, db_path: Path | None = None) -> None:
         if db_path is None:
-            # Create default database in user's home directory or appropriate location
-            home_dir = Path.home()
-            app_dir = home_dir / ".cashflow"
-            app_dir.mkdir(parents=True, exist_ok=True)
-            db_path = str(app_dir / "cashflow.db")
+            msg: str = "db_path must be provided"
+            raise ValueError(msg)
 
         self.engine = create_engine(f"sqlite:///{db_path}")
         self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
