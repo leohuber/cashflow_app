@@ -25,6 +25,9 @@ cashflow = "cashflow:__main__.main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.cashflow]
+home-dir = "./.tmp"
+
 [tool.ruff]
 line-length = 150
 
