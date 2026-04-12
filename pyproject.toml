@@ -8,13 +8,15 @@ authors = [
 ]
 license = "GPL-3.0-only"
 dependencies = [
-    "textual==8.1.1",
-    "pydantic>=2.12.5",
-    "pandas>=3.0.1",
-    "click>=8.3.1",
-    "sqlalchemy>=2.0.48"
+    "textual==8.2.3",
+    "pydantic==2.12.5",
+    "pandas==3.0.2",
+    "click==8.3.2",
+    "sqlalchemy==2.0.49",
+    "alembic==1.18.4",
+    "dependency-injector==4.49.0"
 ]
-requires-python = ">= 3.13"
+requires-python = ">= 3.14"
 
 [project.scripts]
 cashflow = "cashflow:__main__.main"
@@ -83,3 +85,48 @@ output-file = "THIRD_PARTY_LICENSES.md"
 ignore-packages = [
   "scipy"
 ]
+
+[tool.alembic]
+# path to migration scripts
+script_location = "cashflow/data/db/migrations"
+
+# template used to generate migration file names
+file_template = "revision_%%(year)d_%%(month).2d_%%(day).2d_%%(slug)s"
+
+# additional paths to be prepended to sys.path
+prepend_sys_path = "."
+
+# timezone to use when rendering the date within the migration file
+timezone = "UTC"
+
+# max length of characters to apply to the "slug" field
+truncate_slug_length = "40"
+
+# set to 'true' to run the environment during the 'revision' command
+revision_environment = "false"
+
+# set to 'true' to allow .pyc and .pyo files without a source .py file
+sourceless = "false"
+
+# version location specification
+# version_locations = "luna_app/db/migrations/versions"
+
+# set to 'true' to search source files recursively
+recursive_version_locations = "false"
+
+# output encoding used when revision files are written
+output_encoding = "utf-8"
+
+# Post-write hooks for code formatting
+[[tool.alembic.post_write_hooks]]
+name = "ruff_format"
+type = "exec"
+executable = ".venv/bin/ruff"
+options = "format REVISION_SCRIPT_FILENAME"
+
+[[tool.alembic.post_write_hooks]]
+name = "ruff_check"
+type = "exec"
+executable = ".venv/bin/ruff"
+options = "check --fix REVISION_SCRIPT_FILENAME"
+
