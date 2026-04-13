@@ -30,6 +30,7 @@ class TransactionEntity(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     date: Mapped[datetime] = mapped_column(default=datetime.now)
     amount: Mapped[float] = mapped_column()
+    account: Mapped[str] = mapped_column()
     description: Mapped[str | None] = mapped_column(default=None)
 
     # Foreign key relationship with Category
@@ -37,4 +38,4 @@ class TransactionEntity(Base):
     category: Mapped[CategoryEntity | None] = relationship("CategoryEntity", back_populates="transactions")
 
     def __repr__(self) -> str:
-        return f"<Transaction(date='{self.date}', amount={self.amount})>"
+        return f"<Transaction(date='{self.date}', amount={self.amount}, account='{self.account}')>"
