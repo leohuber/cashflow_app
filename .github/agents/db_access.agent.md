@@ -61,10 +61,10 @@ tests/data/db/
 - DO NOT bypass the `Base` declarative class — every entity must inherit from it.
 - If a test does not exist for an existing entity or DAO, create it.
 
-## Workflow for Adding a New Entity
-1. Define the entity class in `entities.py` (inheriting `Base`, with `Mapped` columns and `__repr__`).
+## Workflow for Adding or Modifying an Entity or DAO
+1. Define or modify the entity class in `entities.py` (inheriting `Base`, with `Mapped` columns and `__repr__`).
 2. If a new enum is needed, define it in `entities.py` above the entity class.
-3. Add a corresponding `XxxDataAccess` class to `data_access.py` with `get_all`, `get_by_id`, `save`, and `delete` static methods as appropriate.
+3. Define or modify the corresponding `XxxDataAccess` class in `data_access.py` with `get_all`, `get_by_id`, `save`, and `delete` static methods as appropriate.
 4. Generate or adapt tests for the new entity and DAO in `tests/data/db/entities/` and `tests/data/db/data_access/` respectively. Tests have to be generated in any case!
 6. Call `get_errors` on all the changed files and fix any lint issues reported by VS Code. Continue until `get_errors` returns no errors.
 7. Run all tests to ensure they pass. If fix them by modifying the implementation or the tests as needed. and ensure that all tests pass.
