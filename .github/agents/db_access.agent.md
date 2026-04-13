@@ -21,39 +21,10 @@ tests/data/db/
 
 ## Conventions
 
-### Entity Classes (`entities.py`)
-- All ORM models live in `entities.py` — never split entities across multiple files.
-- Inherit from `Base` (the shared `DeclarativeBase` subclass defined at the top of `entities.py`).
-- Use `Mapped[T]` and `mapped_column(...)` for all columns (SQLAlchemy 2.x style).
-- Name classes with the `Entity` suffix: e.g. `ContactEntity`, `MeetingEntity`.
-- Name tables in snake_case plural or singular consistently with existing tables.
-- Define `__repr__` for every entity for debuggability.
-- Use `deferred=False` explicitly for columns that are always needed.
-- Enum types: define them as `enum.Enum` subclasses in `entities.py` — do NOT put enums elsewhere.
-
-### Entity Classes Tests (`tests/data/db/entities/`)
-- One file per entity (e.g. `category_entity_test.py`, `transaction_entity_test.py`).
-- Test ORM constraints (e.g. non-nullable fields, relationships) by attempting to create entities with invalid data and asserting that exceptions are raised.
-- Test `__repr__` returns a string containing the class name and key attributes.
-- If a test does not exist for an existing entity, create it.
-
-### Data Access Objects (`data_access.py`)
 - All DAOs live in `data_access.py` — one class per entity type.
-- Name classes with the `DataAccess` suffix: e.g. `ContactDataAccess`, `MeetingDataAccess`.
-- All methods are `@staticmethod` — no instance state.
-- Every method receives a `Session` as first argument (injected by the caller, never created internally).
-- For `save` operations:
-  - New records (no `id`): use `session.add()` then `session.flush()` to populate the auto-generated ID.
-  - Existing records (has `id`): use `session.merge()`.
-- Session lifecycle (commit/rollback) is managed by the **service layer**, not DAOs.
-- Import only `ContactEntity`, `MeetingEntity` etc. from `entities.py` — no cross-layer imports.
-
-### DAO Tests (`tests/data/db/data_access/`)
-- One file per DAO class (e.g. `category_data_access_test.py`, `transaction_data_access_test.py`).
-- Use fixtures to set up test data in the database before each test.
-- Test all CRUD operations: `get_all`, `get_by_id`, `save`, and `delete` (if applicable).
-- Assert that the database state changes as expected after each operation (e.g. new record is created, existing record is updated, record is deleted).
-- If a test does not exist for an existing DAO, create it.
+- All ORM models live in `entities.py` — never split entities across multiple files.
+- All DOA tests live in `tests/data/db/data_access/` — one test file per DAO class.
+- All entity tests live in `tests/data/db/entities/` — one test file per entity
 
 ## Constraints
 - DO NOT put business logic in DAOs — they only perform CRUD operations.
