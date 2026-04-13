@@ -40,7 +40,7 @@ dev_deps=$(uv run - <<'EOF'
 import tomllib, re
 with open("pyproject.toml", "rb") as f:
     config = tomllib.load(f)
-deps = config["tool"]["uv"].get("dev-dependencies", [])
+deps = config.get("dependency-groups", {}).get("dev", [])
 # Remove version constraints by splitting on '<', '>', or '=' and stripping quotes
 names = [re.split(r'[<>=]', dep)[0].strip().strip('"').strip("'") for dep in deps]
 print(" ".join(names))
