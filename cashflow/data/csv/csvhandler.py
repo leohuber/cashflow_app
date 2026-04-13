@@ -1,7 +1,10 @@
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 from pandas import DataFrame
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def list_csv_files(data_path: Path) -> list[Path]:
