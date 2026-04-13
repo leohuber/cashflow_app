@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from cashflow.data.db.entities import CategoryEntity, TransactionEntity
+from cashflow.data.db.entities import BudgetEntity, CategoryEntity, TransactionEntity
 
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
@@ -61,5 +61,37 @@ class TransactionDataAccess:
         transaction = TransactionDataAccess.get_transaction_by_id(session, transaction_id)
         if transaction:
             session.delete(transaction)
+            return True
+        return False
+
+
+class BudgetDataAccess:
+    """Data Access Object for Budget entities."""
+
+    @staticmethod
+    def get_all_budgets(session: Session) -> list[BudgetEntity]:
+        """Retrieve all budgets from the database."""
+        return session.query(BudgetEntity).all()
+
+    @staticmethod
+    def get_budget_by_id(session: Session, budget_id: int) -> BudgetEntity | None:
+        """Retrieve a budget by its ID."""
+        return session.query(BudgetEntity).filter(BudgetEntity.id == budget_id).first()
+
+    @staticmethod
+    def save_budget(session: Session, budget: BudgetEntity) -> BudgetEntity:
+        """Save a budget to the database."""
+        if budget.id is None:
+            session.add(budget)
+            session.flush()
+            return budget
+        return session.merge(budget)
+
+    @staticmethod
+    def delete_budget(session: Session, budget_id: int) -> bool:
+        """Delete a budget by its ID."""
+        budget = BudgetDataAccess.get_budget_by_id(session, budget_id)
+        if budget:
+            session.delete(budget)
             return True
         return False

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -19,6 +19,9 @@ class CategoryEntity(Base):
 
     # Relationship with transactions
     transactions: Mapped[list[TransactionEntity]] = relationship("TransactionEntity", back_populates="category")
+
+    # Relationship with budgets
+    budgets: Mapped[list[BudgetEntity]] = relationship("BudgetEntity", back_populates="category")
 
     def __repr__(self) -> str:
         return f"<Category(name='{self.name}')>"
@@ -39,3 +42,21 @@ class TransactionEntity(Base):
 
     def __repr__(self) -> str:
         return f"<Transaction(date='{self.date}', amount={self.amount}, account='{self.account}')>"
+
+
+class BudgetEntity(Base):
+    """Model representing a budget limit for a category in a given year."""
+
+    __tablename__ = "budgets"
+    __table_args__ = (UniqueConstraint("category_id", "year", name="uq_budget_category_year"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    year: Mapped[int] = mapped_column(deferred=False)
+    limit: Mapped[float] = mapped_column(deferred=False)
+
+    # Foreign key relationship with Category
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
+    category: Mapped[CategoryEntity] = relationship("CategoryEntity", back_populates="budgets")
+
+    def __repr__(self) -> str:
+        return f"<Budget(category_id={self.category_id}, year={self.year}, limit={self.limit})>"
