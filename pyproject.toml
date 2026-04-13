@@ -60,9 +60,6 @@ dev = [
     "pip-licenses>=5.0.0",
 ]
 
-[tool.pyright]
-typeCheckingMode = "standard"
-
 [tool.hatch.metadata]
 allow-direct-references = true
 
@@ -76,7 +73,6 @@ exclude = [
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q"
-#norecursedirs = "tests/test_utils"
 testpaths = [
     "tests"
 ]

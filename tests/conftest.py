@@ -1,14 +1,13 @@
-from typing import TYPE_CHECKING, Any
+from __future__ import annotations
+
+from collections.abc import Generator  # noqa: TC003
+from typing import Any
 
 import pytest
+from sqlalchemy.orm import sessionmaker  # noqa: TC002
 
 from cashflow.app_container import CashFlowContainer
 from cashflow.data.db.entities import Base
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
-
-    from sqlalchemy.orm import sessionmaker
 
 
 @pytest.fixture
