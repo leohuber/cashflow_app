@@ -14,7 +14,7 @@ def _make_category(session: Session, name: str = "Food") -> CategoryEntity:
 
 def test_budget_entity_repr(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        category = _make_category(session)
+        category: CategoryEntity = _make_category(session)
         budget = BudgetEntity(year=2025, limit=500.0, category_id=category.id)
         session.add(budget)
         session.flush()
@@ -27,7 +27,7 @@ def test_budget_entity_repr(session_maker: sessionmaker) -> None:
 
 def test_budget_entity_year_is_required(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        category = _make_category(session)
+        category: CategoryEntity = _make_category(session)
         budget = BudgetEntity(limit=100.0, category_id=category.id)
         session.add(budget)
         with pytest.raises((IntegrityError, Exception)):
@@ -36,7 +36,7 @@ def test_budget_entity_year_is_required(session_maker: sessionmaker) -> None:
 
 def test_budget_entity_limit_is_required(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        category = _make_category(session)
+        category: CategoryEntity = _make_category(session)
         budget = BudgetEntity(year=2025, category_id=category.id)
         session.add(budget)
         with pytest.raises((IntegrityError, Exception)):
@@ -53,7 +53,7 @@ def test_budget_entity_category_id_is_required(session_maker: sessionmaker) -> N
 
 def test_budget_entity_unique_category_year(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        category = _make_category(session)
+        category: CategoryEntity = _make_category(session)
         budget1 = BudgetEntity(year=2025, limit=300.0, category_id=category.id)
         budget2 = BudgetEntity(year=2025, limit=400.0, category_id=category.id)
         session.add(budget1)
@@ -65,7 +65,7 @@ def test_budget_entity_unique_category_year(session_maker: sessionmaker) -> None
 
 def test_budget_entity_different_years_allowed(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        category = _make_category(session)
+        category: CategoryEntity = _make_category(session)
         budget1 = BudgetEntity(year=2024, limit=300.0, category_id=category.id)
         budget2 = BudgetEntity(year=2025, limit=400.0, category_id=category.id)
         session.add(budget1)
@@ -78,8 +78,8 @@ def test_budget_entity_different_years_allowed(session_maker: sessionmaker) -> N
 
 def test_budget_entity_different_categories_same_year_allowed(session_maker: sessionmaker) -> None:
     with session_maker() as session:
-        cat1 = _make_category(session, "Food")
-        cat2 = _make_category(session, "Transport")
+        cat1: CategoryEntity = _make_category(session, "Food")
+        cat2: CategoryEntity = _make_category(session, "Transport")
         budget1 = BudgetEntity(year=2025, limit=300.0, category_id=cat1.id)
         budget2 = BudgetEntity(year=2025, limit=150.0, category_id=cat2.id)
         session.add(budget1)
