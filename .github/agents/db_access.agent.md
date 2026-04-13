@@ -66,6 +66,8 @@ tests/data/db/
 2. If a new enum is needed, define it in `entities.py` above the entity class.
 3. Add a corresponding `XxxDataAccess` class to `data_access.py` with `get_all`, `get_by_id`, `save`, and `delete` static methods as appropriate.
 4. Generate or adapt tests for the new entity and DAO in `tests/data/db/entities/` and `tests/data/db/data_access/` respectively. Tests have to be generated in any case!
+6. Call `get_errors` on all the changed files and fix any lint issues reported by VS Code. Continue until `get_errors` returns no errors.
+7. Run all tests to ensure they pass. If fix them by modifying the implementation or the tests as needed. and ensure that all tests pass.
 
 ## Output Format
 When implementing changes, always:
