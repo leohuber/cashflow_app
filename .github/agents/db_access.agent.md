@@ -59,6 +59,7 @@ tests/data/db/
 - DO NOT scatter entity classes across multiple files — all entities belong in `entities.py`.
 - DO NOT commit or rollback inside DAOs — leave transaction control to the service layer.
 - DO NOT bypass the `Base` declarative class — every entity must inherit from it.
+- If a test does not exist for an existing entity or DAO, create it.
 
 ## Workflow for Adding a New Entity
 1. Define the entity class in `entities.py` (inheriting `Base`, with `Mapped` columns and `__repr__`).
