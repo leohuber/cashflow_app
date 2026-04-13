@@ -35,6 +35,7 @@ tests/data/db/
 - One file per entity (e.g. `category_entity_test.py`, `transaction_entity_test.py`).
 - Test ORM constraints (e.g. non-nullable fields, relationships) by attempting to create entities with invalid data and asserting that exceptions are raised.
 - Test `__repr__` returns a string containing the class name and key attributes.
+- If a test does not exist for an existing entity, create it.
 
 ### Data Access Objects (`data_access.py`)
 - All DAOs live in `data_access.py` — one class per entity type.
@@ -52,6 +53,7 @@ tests/data/db/
 - Use fixtures to set up test data in the database before each test.
 - Test all CRUD operations: `get_all`, `get_by_id`, `save`, and `delete` (if applicable).
 - Assert that the database state changes as expected after each operation (e.g. new record is created, existing record is updated, record is deleted).
+- If a test does not exist for an existing DAO, create it.
 
 ## Constraints
 - DO NOT put business logic in DAOs — they only perform CRUD operations.
@@ -59,7 +61,6 @@ tests/data/db/
 - DO NOT scatter entity classes across multiple files — all entities belong in `entities.py`.
 - DO NOT commit or rollback inside DAOs — leave transaction control to the service layer.
 - DO NOT bypass the `Base` declarative class — every entity must inherit from it.
-- If a test does not exist for an existing entity or DAO, create it.
 
 ## Workflow for Adding or Modifying an Entity or DAO
 1. Define or modify the entity class in `entities.py` (inheriting `Base`, with `Mapped` columns and `__repr__`).
