@@ -51,18 +51,6 @@ def test_budget_entity_category_id_is_required(session_maker: sessionmaker) -> N
             session.flush()
 
 
-def test_budget_entity_unique_category_year(session_maker: sessionmaker) -> None:
-    with session_maker() as session:
-        category: CategoryEntity = _make_category(session)
-        budget1 = BudgetEntity(year=2025, limit=300.0, category_id=category.id)
-        budget2 = BudgetEntity(year=2025, limit=400.0, category_id=category.id)
-        session.add(budget1)
-        session.flush()
-        session.add(budget2)
-        with pytest.raises((IntegrityError, Exception)):
-            session.flush()
-
-
 def test_budget_entity_different_years_allowed(session_maker: sessionmaker) -> None:
     with session_maker() as session:
         category: CategoryEntity = _make_category(session)

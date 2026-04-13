@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, UniqueConstraint
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -48,7 +48,6 @@ class BudgetEntity(Base):
     """Model representing a budget limit for a category in a given year."""
 
     __tablename__ = "budgets"
-    __table_args__ = (UniqueConstraint("category_id", "year", name="uq_budget_category_year"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     year: Mapped[int] = mapped_column(deferred=False)
